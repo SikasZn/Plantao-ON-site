@@ -6,7 +6,7 @@ declare(strict_types=1);
 const TO_EMAIL   = 'imthealthtech@imtmed.com.br';
 const FROM_EMAIL = 'imthealthtech@imtmed.com.br'; // deve ser um e-mail do próprio domínio
 const SITE_NAME  = 'Plantão ON';
-const MAX_PER_HOUR = 5;                      // limite por IP
+const MAX_PER_HOUR = 10;                     // limite por IP
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
@@ -64,7 +64,7 @@ if (is_file($file)) {
     $hits = array_values(array_filter($hits, fn($t) => is_int($t) && $t > $now - 3600));
 }
 if (count($hits) >= MAX_PER_HOUR) {
-    reply(429, ['ok' => false, 'error' => 'Muitas mensagens em pouco tempo. Tente novamente mais tarde.']);
+    reply(429, ['ok' => false, 'error' => 'Você já enviou várias mensagens em pouco tempo. Aguarde cerca de 1 hora ou escreva para ' . TO_EMAIL . '.']);
 }
 
 $subject = '[' . SITE_NAME . '] ' . $assunto . ' — ' . $nome;
