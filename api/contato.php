@@ -3,8 +3,8 @@
 // Funciona na hospedagem compartilhada da Hostinger (função mail() do PHP).
 declare(strict_types=1);
 
-const TO_EMAIL   = 'contato@imtmed.com.br';
-const FROM_EMAIL = 'contato@imtmed.com.br'; // deve ser um e-mail do próprio domínio
+const TO_EMAIL   = 'imthealthtech@imtmed.com.br';
+const FROM_EMAIL = 'imthealthtech@imtmed.com.br'; // deve ser um e-mail do próprio domínio
 const SITE_NAME  = 'Plantão ON';
 const MAX_PER_HOUR = 5;                      // limite por IP
 

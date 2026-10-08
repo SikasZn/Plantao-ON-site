@@ -1,8 +1,0 @@
-PLANTÃO ON — SITE
-Suba TODO o conteúdo desta pasta (não a pasta em si) para public_html no Hostinger.
-Veja o passo a passo completo no chat.
-
-Para trocar os dados depois:
-- Domínio/URLs: procure por "imtmed.com.br" nos .html, sitemap.xml, robots.txt e site.webmanifest.
-- E-mail de contato: "contato@imtmed.com.br" (html e api/contato.php).
-- Links das lojas: nos botões "Em breve" em index.html (troque o <span class="store-btn"> por <a class="store-btn" href="URL">).

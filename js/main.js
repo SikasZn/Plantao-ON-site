@@ -152,9 +152,9 @@
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, body: j }; }); })
         .then(function (res) {
           if (res.ok && res.body.ok) { show('Mensagem enviada! Responderemos em breve no e-mail informado.', true); form.reset(); }
-          else { show((res.body && res.body.error) || 'Não foi possível enviar agora. Escreva para contato@imtmed.com.br.', false); }
+          else { show((res.body && res.body.error) || 'Não foi possível enviar agora. Escreva para imthealthtech@imtmed.com.br.', false); }
         })
-        .catch(function () { show('Não foi possível enviar agora. Escreva para contato@imtmed.com.br.', false); })
+        .catch(function () { show('Não foi possível enviar agora. Escreva para imthealthtech@imtmed.com.br.', false); })
         .then(function () { btn.disabled = false; btn.textContent = original; });
     });
   }
