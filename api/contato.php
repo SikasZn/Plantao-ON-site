@@ -72,16 +72,66 @@ $body  = "Nova mensagem pelo site\r\n\r\n";
 $body .= "Nome: $nome\r\nE-mail: $email\r\nAssunto: $assunto\r\n\r\n";
 $body .= $mensagem . "\r\n\r\n--\r\nIP: $ip\r\nEnviado em: " . date('d/m/Y H:i:s') . "\r\n";
 
-$headers = [
-    'From: ' . SITE_NAME . ' <' . FROM_EMAIL . '>',
-    'Reply-To: ' . str_replace(['"', '<', '>', ',', ';'], '', $nome) . ' <' . $email . '>',
-    'MIME-Version: 1.0',
-    'Content-Type: text/plain; charset=UTF-8',
-    'X-Mailer: PHP/' . PHP_VERSION,
-];
+// Configuração privada (chave do Resend), guardada FORA da pasta pública:
+//   /home/uXXXX/plantaoon-config.php   (um nível acima de public_html)
+$config = [];
+$configFile = dirname((string)($_SERVER['DOCUMENT_ROOT'] ?? '')) . '/plantaoon-config.php';
+if (is_file($configFile)) {
+    $loaded = include $configFile;
+    if (is_array($loaded)) { $config = $loaded; }
+}
 
-$encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$sent = @mail(TO_EMAIL, $encodedSubject, $body, implode("\r\n", $headers), '-f' . FROM_EMAIL);
+/** Devolve '' em caso de sucesso, ou o motivo da falha. */
+function send_with_resend(array $config, string $subject, string $body, string $replyName, string $replyEmail): string {
+    if (empty($config['resend_api_key'])) { return 'sem chave (arquivo plantaoon-config.php nao encontrado ou vazio)'; }
+    if (!function_exists('curl_init'))   { return 'extensao curl indisponivel'; }
+    $payload = [
+        'from'     => $config['from'] ?? (SITE_NAME . ' <nao-responda@imtmed.com.br>'),
+        'to'       => [TO_EMAIL],
+        'reply_to' => $replyName . ' <' . $replyEmail . '>',
+        'subject'  => $subject,
+        'text'     => $body,
+    ];
+    $ch = curl_init('https://api.resend.com/emails');
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 15,
+        CURLOPT_HTTPHEADER     => [
+            'Authorization: Bearer ' . $config['resend_api_key'],
+            'Content-Type: application/json',
+        ],
+        CURLOPT_POSTFIELDS     => json_encode($payload, JSON_UNESCAPED_UNICODE),
+    ]);
+    $resp  = curl_exec($ch);
+    $code  = (int)curl_getinfo($ch, CURLINFO_RESPONSE_CODE);
+    $cerr  = curl_error($ch);
+    curl_close($ch);
+    if ($resp === false) { return 'falha de rede: ' . $cerr; }
+    if ($code < 200 || $code >= 300) { return 'Resend HTTP ' . $code . ': ' . mb_substr((string)$resp, 0, 300); }
+    return '';
+}
+
+$replyName = str_replace(['"', '<', '>', ',', ';'], '', $nome);
+$resendError = send_with_resend($config, $subject, $body, $replyName, $email);
+$sent = ($resendError === '');
+$via  = 'Resend';
+
+// Plano B: mail() do PHP (pode cair no spam se o domínio usa o Google para e-mail)
+if (!$sent) {
+    error_log('[contato.php] Resend falhou -> usando mail(): ' . $resendError);
+    $via  = 'mail() do PHP [Resend falhou: ' . $resendError . ']';
+    $body .= "Enviado via: $via\r\n";
+    $headers = [
+        'From: ' . SITE_NAME . ' <' . FROM_EMAIL . '>',
+        'Reply-To: ' . $replyName . ' <' . $email . '>',
+        'MIME-Version: 1.0',
+        'Content-Type: text/plain; charset=UTF-8',
+        'X-Mailer: PHP/' . PHP_VERSION,
+    ];
+    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
+    $sent = @mail(TO_EMAIL, $encodedSubject, $body, implode("\r\n", $headers), '-f' . FROM_EMAIL);
+}
 
 if (!$sent) {
     reply(500, ['ok' => false, 'error' => 'Não foi possível enviar agora. Escreva para ' . TO_EMAIL . '.']);
