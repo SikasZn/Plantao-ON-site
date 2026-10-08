@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="pt-BR" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Plantão ON — Organize seus plantões e controle seus ganhos</title>
+  <meta name="description" content="O Plantão ON é o aplicativo para médicos plantonistas organizarem escalas, hospitais, ganhos e relatórios em um só lugar. Agenda de plantões, controle financeiro e sincronização com o Google Agenda.">
+  <meta name="theme-color" content="#0f1b33">
+  <link rel="canonical" href="https://imtmed.com.br/">
+
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Plantão ON">
+  <meta property="og:title" content="Plantão ON — Seus plantões. Seus ganhos. Tudo em um só lugar.">
+  <meta property="og:description" content="Aplicativo para médicos plantonistas: agenda, hospitais por cores, controle financeiro e relatórios.">
+  <meta property="og:url" content="https://imtmed.com.br/">
+  <meta property="og:image" content="https://imtmed.com.br/assets/img/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="preload" href="assets/fonts/plus-jakarta-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/styles.css">
+  <script>document.documentElement.classList.remove('no-js');</script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Migliorini Teixeira Health Tech Ltda.",
+        "url": "https://imtmed.com.br/",
+        "logo": "https://imtmed.com.br/assets/img/icon-512.png",
+        "email": "contato@imtmed.com.br",
+        "taxID": "69.494.098/0001-87"
+      },
+      {
+        "@type": "MobileApplication",
+        "name": "Plantão ON",
+        "applicationCategory": "HealthApplication",
+        "operatingSystem": "iOS, Android",
+        "description": "Aplicativo para médicos plantonistas organizarem plantões, hospitais, ganhos e relatórios.",
+        "publisher": { "@type": "Organization", "name": "Migliorini Teixeira Health Tech Ltda." },
+        "offers": [
+          { "@type": "Offer", "price": "14.90", "priceCurrency": "BRL", "name": "Plano mensal" },
+          { "@type": "Offer", "price": "119.90", "priceCurrency": "BRL", "name": "Plano anual" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+<a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+
+<!-- Ícones -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M2 21h20M8 7h4M8 11h4M8 15h4"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+    <symbol id="i-repeat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2l4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4M21 13v2a3 3 0 0 1-3 3H3"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 6.5v11M15 9.3c0-1-1.3-1.8-3-1.8s-3 .8-3 2c0 2.5 6 1.3 6 3.7 0 1.2-1.3 2-3 2s-3-.8-3-1.9"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h6"/></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V11M11 20V4M17 20v-6M3 20h18"/></symbol>
+    <symbol id="i-sync" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 1-15.5 6.2M3 12A9 9 0 0 1 18.5 5.8M18 2v4h-4M6 22v-4h4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 7.5l9 6 9-6"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10.5l5 5 5-5M4 21h16"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></symbol>
+  </defs>
+</svg>
+
+<header class="site-header" id="topo">
+  <div class="container header-inner">
+    <a class="brand" href="#inicio" aria-label="Plantão ON — início">
+      <img src="assets/img/logo-mark.svg" alt="" width="34" height="40">
+      <span class="brand-text">
+        <span class="brand-name">Plantão <b>ON</b></span>
+        <span class="brand-tag">Escala de Plantões &amp; Ganhos</span>
+      </span>
+    </a>
+    <nav class="nav" id="menu" aria-label="Principal">
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#funcionalidades">Funcionalidades</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#para-quem">Para quem</a></li>
+        <li><a href="#duvidas">Dúvidas</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li class="nav-cta"><a class="btn btn--primary btn--block" href="#baixar">Baixar o app</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn--primary btn--sm header-cta" href="#baixar">Baixar o app</a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu"><span></span></button>
+  </div>
+</header>
+
+<main id="conteudo">
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Organize sua rotina. Controle seus ganhos.</span>
+        <h1><span>Seus plantões.</span><span>Seus ganhos.</span><span class="accent">Tudo em um só lugar.</span></h1>
+        <p class="hero-lead">O Plantão ON é o aplicativo desenvolvido para médicos plantonistas que querem mais organização, praticidade e controle financeiro na sua rotina.</p>
+        <div class="hero-cta">
+          <span class="store-btn" aria-label="App Store — em breve"><svg><use href="#i-download"/></svg><span><small>Em breve na</small><strong>App Store</strong></span></span>
+          <span class="store-btn" aria-label="Google Play — em breve"><svg><use href="#i-download"/></svg><span><small>Em breve no</small><strong>Google Play</strong></span></span>
+        </div>
+        <p class="soon-note">Estamos finalizando a publicação nas lojas. <a href="#contato">Fale com a gente</a> para saber quando abrir.</p>
+        <ul class="mini-points">
+          <li><span class="ico"><svg><use href="#i-cal"/></svg></span>Organize<br>seus plantões</li>
+          <li><span class="ico"><svg><use href="#i-clock"/></svg></span>Mais tempo<br>para o que importa</li>
+          <li><span class="ico"><svg><use href="#i-coin"/></svg></span>Seus ganhos<br>sempre à vista</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-blob"></div>
+        <div data-phone="finance" class="phone--back-slot"></div>
+        <div data-phone="calendar" class="phone--front-slot"></div>
+        <div class="float-chip float-chip--a"><span class="dot"><svg width="18" height="18"><use href="#i-sync"/></svg></span><span>Google Agenda<small>Sincronização automática</small></span></div>
+        <div class="float-chip float-chip--b"><span class="dot"><svg width="18" height="18"><use href="#i-file"/></svg></span><span>Relatórios<small>PDF e CSV</small></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FUNCIONALIDADES -->
+  <section class="section" id="funcionalidades">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="eyebrow">Funcionalidades</span>
+        <h2>Organização completa para a sua rotina de plantões</h2>
+        <p>O Plantão ON foi pensado para simplificar a vida do médico plantonista, reunindo em um só lugar agenda, controle financeiro e relatórios.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-cal"/></svg></div><h3>Agenda de plantões</h3><p>Visualize todos os seus plantões em um calendário claro e fácil de consultar.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-building"/></svg></div><h3>Hospitais por cores</h3><p>Cadastre seus hospitais e escolha uma cor para cada um, facilitando a visualização.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-plus"/></svg></div><h3>Cadastro rápido</h3><p>Adicione um plantão em poucos toques, com horário, local, valor e observações.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-repeat"/></svg></div><h3>Plantões recorrentes</h3><p>Crie plantões semanais, quinzenais ou mensais automaticamente, e edite só um ou toda a sequência.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-coin"/></svg></div><h3>Controle financeiro</h3><p>Acompanhe ganhos previstos, recebidos e a receber, horas trabalhadas e média por plantão.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-sync"/></svg></div><h3>Google Agenda</h3><p>Se você quiser, seus plantões aparecem também na sua agenda do Google, e as mudanças acompanham.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-bell"/></svg></div><h3>Notificações</h3><p>Receba lembretes dos seus plantões e alertas de pagamentos pendentes.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-file"/></svg></div><h3>Relatórios</h3><p>Gere relatórios mensais e anuais em PDF ou CSV e envie quando precisar.</p></article>
+        <article class="feature reveal"><div class="ico"><svg><use href="#i-chart"/></svg></div><h3>Visão completa</h3><p>Entenda quais hospitais geram mais ganhos e acompanhe sua evolução financeira.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="tempo-title">
+    <div class="container split">
+      <div class="split-visual reveal" aria-hidden="true"><div data-phone="calendar"></div></div>
+      <div class="reveal">
+        <span class="eyebrow">Mais tempo importa</span>
+        <h2 id="tempo-title" style="font-size:clamp(1.75rem,4.4vw,2.6rem)">Mais tempo para o que <span class="accent">realmente importa</span></h2>
+        <p style="color:var(--muted);font-size:1.08rem">Organize seus plantões, acompanhe seus ganhos e tenha mais tranquilidade na sua vida profissional.</p>
+        <ul class="check-list">
+          <li><span class="tick"><svg><use href="#i-check"/></svg></span><span><strong>Tudo na palma da mão</strong>Escala, valores e horas num único app, sem planilhas nem anotações soltas.</span></li>
+          <li><span class="tick"><svg><use href="#i-check"/></svg></span><span><strong>Saiba quanto vai receber</strong>Veja o previsto, o que já caiu e o que ainda falta receber de cada hospital.</span></li>
+          <li><span class="tick"><svg><use href="#i-check"/></svg></span><span><strong>Relatórios prontos</strong>Exporte o mês ou o ano em PDF ou CSV para conferir ou compartilhar.</span></li>
+        </ul>
+        <a class="btn btn--primary" href="#planos">Ver planos</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLANOS -->
+  <section class="section" id="planos">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="eyebrow">Planos</span>
+        <h2>Escolha o plano ideal para a sua rotina</h2>
+        <p>Acesso a todas as funcionalidades e mais organização para seus plantões, com um preço justo e sem complicação.</p>
+      </div>
+      <div class="plans">
+        <article class="plan reveal">
+          <h3>Mensal</h3>
+          <div class="price"><small>R$</small><strong>14,90</strong></div>
+          <p class="price-sub">por mês</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Agenda de plantões</li>
+            <li><svg><use href="#i-check"/></svg>Hospitais por cores</li>
+            <li><svg><use href="#i-check"/></svg>Controle financeiro</li>
+            <li><svg><use href="#i-check"/></svg>Relatórios em PDF e CSV</li>
+            <li><svg><use href="#i-check"/></svg>Notificações</li>
+            <li><svg><use href="#i-check"/></svg>Suporte por e-mail</li>
+            <li><svg><use href="#i-check"/></svg>Todas as atualizações</li>
+          </ul>
+          <a class="btn btn--ghost btn--block" href="#baixar">Começar agora</a>
+        </article>
+        <article class="plan plan--featured reveal">
+          <span class="badge">Mais vantajoso</span>
+          <h3>Anual</h3>
+          <div class="price"><small>R$</small><strong>119,90</strong></div>
+          <p class="price-sub">por ano (equivale a R$&nbsp;9,99/mês)</p>
+          <ul>
+            <li><svg><use href="#i-check"/></svg>Agenda de plantões</li>
+            <li><svg><use href="#i-check"/></svg>Hospitais por cores</li>
+            <li><svg><use href="#i-check"/></svg>Controle financeiro</li>
+            <li><svg><use href="#i-check"/></svg>Relatórios em PDF e CSV</li>
+            <li><svg><use href="#i-check"/></svg>Notificações</li>
+            <li><svg><use href="#i-check"/></svg>Suporte por e-mail</li>
+            <li><svg><use href="#i-check"/></svg>Todas as atualizações</li>
+          </ul>
+          <a class="btn btn--primary btn--block" href="#baixar">Começar agora</a>
+        </article>
+      </div>
+      <ul class="plans-notes">
+        <li><svg><use href="#i-clock"/></svg>30 dias grátis para testar</li>
+        <li><svg><use href="#i-check"/></svg>Cancele quando quiser</li>
+        <li><svg><use href="#i-lock"/></svg>Pagamento seguro pela App Store e Google Play</li>
+      </ul>
+      <p class="fineprint">Valores em reais. A assinatura é cobrada e gerenciada pela loja de aplicativos (App Store ou Google Play) e renova automaticamente até ser cancelada. Veja os <a href="termos.html">Termos de Uso</a>.</p>
+    </div>
+  </section>
+
+  <!-- PARA QUEM -->
+  <section class="section section--alt" id="para-quem">
+    <div class="container">
+      <div class="section-head section-head--center reveal">
+        <span class="eyebrow">Para quem</span>
+        <h2>Feito para médicos plantonistas, como você</h2>
+        <p>Quem trabalha em vários hospitais, escalas e vínculos sabe o quanto é difícil manter tudo sob controle. O Plantão ON foi criado para essa realidade.</p>
+      </div>
+      <div class="audience">
+        <article class="aud reveal" style="--c:var(--green)"><h3>Vários hospitais</h3><p>Distinga cada local por cor e veja, de relance, onde você está em cada dia do mês.</p></article>
+        <article class="aud reveal" style="--c:var(--blue)"><h3>Escalas que se repetem</h3><p>Configure a repetição uma vez e deixe o app preencher os próximos meses para você.</p></article>
+        <article class="aud reveal" style="--c:var(--amber)"><h3>Pagamentos a receber</h3><p>Marque o que já foi pago e não perca de vista o que ainda está pendente.</p></article>
+        <article class="aud reveal" style="--c:var(--violet)"><h3>Prestação de contas</h3><p>Gere relatórios do mês ou do ano e tenha tudo pronto para conferir ou declarar.</p></article>
+      </div>
+      <div class="cta-band reveal" style="margin-top:56px">
+        <div>
+          <h2>Mais organização. Mais controle. Mais liberdade.</h2>
+          <p>Leve a sua rotina de plantões para um só aplicativo.</p>
+        </div>
+        <div class="cta-actions on-dark">
+          <span class="store-btn"><svg><use href="#i-download"/></svg><span><small>Em breve na</small><strong>App Store</strong></span></span>
+          <span class="store-btn"><svg><use href="#i-download"/></svg><span><small>Em breve no</small><strong>Google Play</strong></span></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÚVIDAS -->
+  <section class="section" id="duvidas">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2>Tire suas dúvidas sobre o Plantão ON</h2>
+        <p>Separamos as principais perguntas para ajudar. Se ainda ficar com dúvida, entre em contato pelo canal de atendimento.</p>
+      </div>
+      <div class="faq-wrap">
+        <div class="faq reveal">
+          <details><summary>O que é o Plantão ON?</summary><div class="answer"><p>É um aplicativo para médicos plantonistas organizarem plantões, hospitais, ganhos e relatórios em um só lugar, direto no celular.</p></div></details>
+          <details><summary>Como funciona o período de teste?</summary><div class="answer"><p>Ao assinar pela primeira vez, você tem 30 dias para testar todas as funcionalidades sem custo. Se não quiser continuar, cancele antes do fim do período, pela própria loja de aplicativos, e nada será cobrado.</p></div></details>
+          <details><summary>Quais são os planos e valores?</summary><div class="answer"><p>Há o plano mensal, de R$&nbsp;14,90 por mês, e o plano anual, de R$&nbsp;119,90 por ano (equivalente a R$&nbsp;9,99 por mês). Os dois dão acesso a todas as funcionalidades.</p></div></details>
+          <details><summary>Como funciona o cancelamento?</summary><div class="answer"><p>A assinatura é gerenciada pela App Store ou pelo Google Play, e você pode cancelar a qualquer momento nas configurações de assinaturas da sua conta na loja. O acesso continua até o fim do período já pago.</p></div></details>
+          <details><summary>O aplicativo está disponível para iOS e Android?</summary><div class="answer"><p>O Plantão ON foi desenvolvido para iOS e Android e está em fase de publicação nas duas lojas. Assim que estiver no ar, os botões de download desta página serão ativados.</p></div></details>
+          <details><summary>Meus dados estão seguros?</summary><div class="answer"><p>Sim. Os dados trafegam por conexão criptografada (HTTPS) e ficam em infraestrutura de nuvem com controle de acesso por conta. Seguimos a Lei Geral de Proteção de Dados (LGPD). Saiba mais na <a href="privacidade.html">Política de Privacidade</a>.</p></div></details>
+          <details><summary>Posso exportar meus relatórios?</summary><div class="answer"><p>Sim. Você gera relatórios mensais ou anuais em PDF ou CSV e pode enviá-los por e-mail.</p></div></details>
+          <details><summary>Posso cadastrar mais de um hospital?</summary><div class="answer"><p>Sim. Você cadastra quantos hospitais e locais de trabalho precisar e escolhe uma cor para cada um.</p></div></details>
+          <details><summary>O aplicativo serve apenas para médicos?</summary><div class="answer"><p>Ele foi pensado para a rotina de médicos plantonistas, mas qualquer profissional que trabalhe em escalas de plantão pode usar para organizar horários e ganhos.</p></div></details>
+          <details><summary>O Plantão ON guarda dados de pacientes?</summary><div class="answer"><p>Não. O aplicativo é para a sua organização profissional e financeira. Pedimos que não registre nome ou dados de pacientes nas anotações dos plantões.</p></div></details>
+          <details><summary>Como faço para entrar em contato com o suporte?</summary><div class="answer"><p>Escreva para <a href="mailto:contato@imtmed.com.br">contato@imtmed.com.br</a> ou use o formulário na seção <a href="#contato">Contato</a>.</p></div></details>
+        </div>
+        <div class="faq-phone" aria-hidden="true"><div data-phone="finance"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section section--alt" id="sobre">
+    <div class="container about-grid">
+      <div class="reveal">
+        <span class="eyebrow">Sobre o Plantão ON</span>
+        <h2 style="font-size:clamp(1.75rem,4.4vw,2.6rem)">Tecnologia para uma vida profissional mais organizada</h2>
+        <p>O Plantão ON nasceu da realidade de médicos plantonistas, que vivem a rotina de múltiplos locais, escalas diferentes e variações de valor, e encontraram a necessidade de uma ferramenta simples e completa para organizar os próprios plantões e ganhos.</p>
+        <p>O aplicativo é desenvolvido e mantido pela <strong>Migliorini Teixeira Health Tech Ltda.</strong> (CNPJ 69.494.098/0001-87), empresa dedicada a criar soluções digitais para a área da saúde.</p>
+      </div>
+      <div class="values">
+        <div class="value reveal"><div class="ico"><svg><use href="#i-target"/></svg></div><div><h3>Nossa missão</h3><p>Simplificar a vida do médico plantonista, oferecendo uma ferramenta prática, segura e completa.</p></div></div>
+        <div class="value reveal"><div class="ico"><svg><use href="#i-eye"/></svg></div><div><h3>Nossos valores</h3><p>Praticidade, segurança, transparência, inovação e respeito ao tempo do profissional de saúde.</p></div></div>
+        <div class="value reveal"><div class="ico"><svg><use href="#i-shield"/></svg></div><div><h3>Nosso compromisso</h3><p>Evoluir continuamente o aplicativo, sempre com base na experiência real dos nossos usuários e protegendo seus dados.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section class="section" id="contato">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow">Contato</span>
+        <h2>Fale com a nossa equipe</h2>
+        <p>Estamos prontos para ajudar. Entre em contato pelo canal de sua preferência.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-cards reveal">
+          <div class="contact-card"><div class="ico"><svg><use href="#i-mail"/></svg></div><div><h3>E-mail</h3><p><a href="mailto:contato@imtmed.com.br">contato@imtmed.com.br</a></p><p>Respondemos em até 2 dias úteis.</p></div></div>
+          <div class="contact-card"><div class="ico"><svg><use href="#i-shield"/></svg></div><div><h3>Privacidade e dados</h3><p>Dúvidas sobre seus dados pessoais (LGPD): <a href="mailto:contato@imtmed.com.br?subject=Privacidade%20e%20dados">contato@imtmed.com.br</a></p></div></div>
+        </div>
+        <form class="form reveal" id="contact-form" action="api/contato.php" method="post" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="f-nome">Nome</label><input id="f-nome" name="nome" type="text" autocomplete="name" placeholder="Seu nome" required maxlength="100"></div>
+            <div class="field"><label for="f-email">E-mail</label><input id="f-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required maxlength="150"></div>
+          </div>
+          <div class="field"><label for="f-assunto">Assunto</label>
+            <select id="f-assunto" name="assunto" required>
+              <option value="">Selecione o assunto</option>
+              <option>Dúvida sobre o aplicativo</option>
+              <option>Suporte técnico</option>
+              <option>Assinatura e pagamento</option>
+              <option>Privacidade e dados pessoais</option>
+              <option>Sugestão</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="field"><label for="f-msg">Mensagem</label><textarea id="f-msg" name="mensagem" placeholder="Digite sua mensagem aqui..." required maxlength="3000"></textarea></div>
+          <div class="field field--hp" aria-hidden="true"><label for="f-site">Não preencha este campo</label><input id="f-site" name="site" type="text" tabindex="-1" autocomplete="off"></div>
+          <p class="consent">Ao enviar, você concorda que usemos seus dados apenas para responder esta mensagem, conforme a <a href="privacidade.html">Política de Privacidade</a>. Não inclua dados de pacientes.</p>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <button class="btn btn--primary" type="submit" id="form-btn">Enviar mensagem</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- BAIXAR -->
+  <section class="section download" id="baixar">
+    <div class="container download-grid">
+      <div class="reveal">
+        <span class="eyebrow">Baixe agora</span>
+        <h2>Leve o Plantão ON <span class="accent">com você</span></h2>
+        <p style="color:var(--muted);font-size:1.08rem;max-width:480px">Desenvolvido para iOS e Android. Comece com 30 dias grátis para testar todas as funcionalidades.</p>
+        <div class="hero-cta" style="margin-top:24px">
+          <span class="store-btn"><svg><use href="#i-download"/></svg><span><small>Em breve na</small><strong>App Store</strong></span></span>
+          <span class="store-btn"><svg><use href="#i-download"/></svg><span><small>Em breve no</small><strong>Google Play</strong></span></span>
+        </div>
+        <p class="soon-note">Os botões serão ativados assim que o aplicativo for publicado nas lojas.</p>
+        <ul class="dl-points">
+          <li><svg><use href="#i-clock"/></svg>30 dias para testar</li>
+          <li><svg><use href="#i-check"/></svg>Cancele quando quiser</li>
+          <li><svg><use href="#i-lock"/></svg>Pagamento seguro pela loja</li>
+          <li><svg><use href="#i-shield"/></svg>Seus dados protegidos (LGPD)</li>
+        </ul>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-blob"></div>
+        <div data-phone="finance" class="phone--back-slot"></div>
+        <div data-phone="calendar" class="phone--front-slot"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="#topo" aria-label="Plantão ON — voltar ao topo">
+          <img src="assets/img/logo-mark-light.svg" alt="" width="34" height="40">
+          <span class="brand-text"><span class="brand-name">Plantão <b>ON</b></span><span class="brand-tag">Escala de Plantões &amp; Ganhos</span></span>
+        </a>
+        <p>Aplicativo para médicos plantonistas organizarem plantões, ganhos e relatórios em um só lugar.</p>
+      </div>
+      <div class="col-links">
+        <h4>Navegação</h4>
+        <ul>
+          <li><a href="#funcionalidades">Funcionalidades</a></li>
+          <li><a href="#planos">Planos</a></li>
+          <li><a href="#duvidas">Dúvidas</a></li>
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </div>
+      <div class="col-links">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="privacidade.html">Política de Privacidade</a></li>
+          <li><a href="termos.html">Termos de Uso</a></li>
+          <li><a href="excluir-conta.html">Exclusão de conta e dados</a></li>
+        </ul>
+      </div>
+      <div class="col-links">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="mailto:contato@imtmed.com.br">contato@imtmed.com.br</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year>2026</span> Migliorini Teixeira Health Tech Ltda. · CNPJ 69.494.098/0001-87 · Todos os direitos reservados.</p>
+      <p>Imagens do aplicativo são ilustrativas.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js" defer></script>
+</body>
+</html>
