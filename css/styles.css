@@ -201,7 +201,7 @@ p { margin: 0 0 1em; }
 }
 .float-chip .dot { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; background: var(--mint); color: var(--green-600); }
 .float-chip small { display: block; font-weight: 600; color: var(--muted); font-size: .72rem; }
-.float-chip--a { left: -4px; bottom: 6px; }
+.float-chip--a { left: -24px; bottom: -16px; }
 .float-chip--b { right: 0; top: 18px; }
 
 @media (min-width: 900px) {

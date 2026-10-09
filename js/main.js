@@ -31,7 +31,7 @@
   var PHONES = {
     calendar:
       '<div class="screen">' +
-        '<div class="screen-top"><div class="hello"><span>Olá, Dr. José 👋</span><i>＋</i></div>' +
+        '<div class="screen-top"><div class="hello"><span>Olá, José 👋</span><i>＋</i></div>' +
         '<div class="month">Outubro 2026</div>' +
         '<div class="stat-row"><div class="stat"><b>12</b><span>Plantões</span></div><div class="stat"><b>144</b><span>Horas</span></div></div></div>' +
         '<div class="money-row">' +
@@ -42,8 +42,8 @@
         '<div class="screen-body">' +
           '<div class="cal"><div class="cal-head"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div><div class="cal-grid">' + calendarCells() + '</div></div>' +
           '<div class="screen-title">Próximos plantões</div>' +
-          '<div class="shift" style="--c:#16a34a"><i class="bar"></i><div><b>Hospital Central</b><small>07:00 – 19:00 · UTI</small></div><em>R$ 1.500</em></div>' +
-          '<div class="shift" style="--c:#f59e0b"><i class="bar"></i><div><b>Pronto Atendimento Sul</b><small>19:00 – 07:00 · PS</small></div><em>R$ 1.400</em></div>' +
+          '<div class="shift" style="--c:#16a34a"><i class="bar"></i><div><b>Unidade Centro</b><small>07:00 – 19:00 · Diurno</small></div><em>R$ 1.500</em></div>' +
+          '<div class="shift" style="--c:#f59e0b"><i class="bar"></i><div><b>Posto Norte</b><small>19:00 – 07:00 · Noturno</small></div><em>R$ 1.400</em></div>' +
         '</div>' + tab(0) +
       '</div>',
     finance:
@@ -52,12 +52,12 @@
         '<div class="screen-body" style="padding-top:12px">' +
           '<div class="money-row" style="padding:0 0 4px"><div class="money"><small>Previstos</small><b>R$ 18.400</b></div><div class="money money--g"><small>Recebidos</small><b>R$ 12.600</b></div><div class="money money--a"><small>A receber</small><b>R$ 5.800</b></div></div>' +
           '<div class="donut"><div><span><b>12</b><small>plantões</small></span></div></div>' +
-          '<div class="screen-title">Ganhos por hospital</div>' +
+          '<div class="screen-title">Ganhos por local</div>' +
           '<div class="hbars">' +
-            '<div class="row"><span>Hosp. Central</span><div class="track"><i style="--c:#16a34a;--w:82%"></i></div><span>7.500</span></div>' +
-            '<div class="row"><span>UPA Norte</span><div class="track"><i style="--c:#3b82f6;--w:66%"></i></div><span>6.000</span></div>' +
-            '<div class="row"><span>Clínica Vida</span><div class="track"><i style="--c:#f59e0b;--w:48%"></i></div><span>4.500</span></div>' +
-            '<div class="row"><span>Hosp. Sul</span><div class="track"><i style="--c:#8b5cf6;--w:30%"></i></div><span>2.800</span></div>' +
+            '<div class="row"><span>Centro</span><div class="track"><i style="--c:#16a34a;--w:82%"></i></div><span>7.500</span></div>' +
+            '<div class="row"><span>Posto Norte</span><div class="track"><i style="--c:#3b82f6;--w:66%"></i></div><span>6.000</span></div>' +
+            '<div class="row"><span>Base Leste</span><div class="track"><i style="--c:#f59e0b;--w:48%"></i></div><span>4.500</span></div>' +
+            '<div class="row"><span>Unid. Sul</span><div class="track"><i style="--c:#8b5cf6;--w:30%"></i></div><span>2.800</span></div>' +
           '</div>' +
         '</div>' + tab(3) +
       '</div>'
