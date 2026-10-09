@@ -75,13 +75,20 @@ $body .= $mensagem . "\r\n\r\n--\r\nIP: $ip\r\nEnviado em: " . date('d/m/Y H:i:s
 // Configuração privada (chave do Resend), guardada FORA da pasta pública:
 //   /home/uXXXX/plantaoon-config.php   (um nível acima de public_html)
 $config = [];
-$configFile = dirname((string)($_SERVER['DOCUMENT_ROOT'] ?? '')) . '/plantaoon-config.php';
-if (is_file($configFile)) {
-    $loaded = include $configFile;
-    if (is_array($loaded)) { $config = $loaded; }
+// Procura plantaoon-config.php nas pastas ACIMA do site (até 3 níveis).
+// Por segurança, ignora qualquer pasta chamada public_html (acessível pela web).
+$dir = (string)($_SERVER['DOCUMENT_ROOT'] ?? '');
+for ($i = 0; $i < 3 && $dir !== '' && $dir !== '/'; $i++) {
+    $dir = dirname($dir);
+    if (basename($dir) === 'public_html') { continue; }
+    $candidate = $dir . '/plantaoon-config.php';
+    if (is_file($candidate)) {
+        $loaded = include $candidate;
+        if (is_array($loaded)) { $config = $loaded; }
+        break;
+    }
 }
 
-/** Devolve '' em caso de sucesso, ou o motivo da falha. */
 function send_with_resend(array $config, string $subject, string $body, string $replyName, string $replyEmail): string {
     if (empty($config['resend_api_key'])) { return 'sem chave (arquivo plantaoon-config.php nao encontrado ou vazio)'; }
     if (!function_exists('curl_init'))   { return 'extensao curl indisponivel'; }

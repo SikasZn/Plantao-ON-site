@@ -51,6 +51,6 @@ ErrorDocument 404 /404.html
 </IfModule>
 
 # Nunca servir arquivos de configuração
-<FilesMatch "(^config.*\.php$|\.sample$|\.bak$)">
+<FilesMatch "(^config.*\.php$|plantaoon-config\.php$|\.sample$|\.bak$)">
   Require all denied
 </FilesMatch>
