@@ -2,76 +2,24 @@
 (function () {
   'use strict';
 
-  /* ---------- Mock do aplicativo (decorativo, ilustrativo) ---------- */
-  var tab = function (on) {
-    return '<div class="tabbar">' +
-      '<span class="' + (on === 0 ? 'on' : '') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18"/></svg>Início</span>' +
-      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4"/></svg>Agenda</span>' +
-      '<span class="plus">+</span>' +
-      '<span class="' + (on === 3 ? 'on' : '') + '"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 20V11M11 20V4M17 20v-6"/></svg>Finanças</span>' +
-      '<span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/></svg>Perfil</span>' +
-      '</div>';
+  /* ---------- Telas reais do aplicativo (decorativas nos slots) ---------- */
+  var IMG = {
+    inicio: 'assets/img/app-inicio.webp',
+    financeiro: 'assets/img/app-financeiro.webp',
+    relatorios: 'assets/img/app-relatorios.webp'
   };
-
-  function calendarCells() {
-    // Outubro/2026 começa numa quinta-feira (4 dias do mês anterior)
-    var marks = { 2: '#16a34a', 5: '#3b82f6', 7: '#16a34a', 9: '#f59e0b', 12: '#3b82f6', 14: '#16a34a', 17: '#8b5cf6', 20: '#16a34a', 23: '#f59e0b', 26: '#3b82f6', 29: '#16a34a' };
-    var out = '';
-    [27, 28, 29, 30].forEach(function (d) { out += '<span class="m">' + d + '</span>'; });
-    for (var d = 1; d <= 31; d++) {
-      var cls = [];
-      var style = '';
-      if (marks[d]) { cls.push('d'); style = ' style="--c:' + marks[d] + '"'; }
-      if (d === 7) cls.push('t');
-      out += '<span' + (cls.length ? ' class="' + cls.join(' ') + '"' : '') + style + '>' + d + '</span>';
-    }
-    return out;
-  }
-
-  var PHONES = {
-    calendar:
-      '<div class="screen">' +
-        '<div class="screen-top"><div class="hello"><span>Olá, José 👋</span><i>＋</i></div>' +
-        '<div class="month">Outubro 2026</div>' +
-        '<div class="stat-row"><div class="stat"><b>12</b><span>Plantões</span></div><div class="stat"><b>144</b><span>Horas</span></div></div></div>' +
-        '<div class="money-row">' +
-          '<div class="money"><small>Previstos</small><b>R$ 18.400</b></div>' +
-          '<div class="money money--g"><small>Recebidos</small><b>R$ 12.600</b></div>' +
-          '<div class="money money--a"><small>A receber</small><b>R$ 5.800</b></div>' +
-        '</div>' +
-        '<div class="screen-body">' +
-          '<div class="cal"><div class="cal-head"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div><div class="cal-grid">' + calendarCells() + '</div></div>' +
-          '<div class="screen-title">Próximos plantões</div>' +
-          '<div class="shift" style="--c:#16a34a"><i class="bar"></i><div><b>Unidade Centro</b><small>07:00 – 19:00 · Diurno</small></div><em>R$ 1.500</em></div>' +
-          '<div class="shift" style="--c:#f59e0b"><i class="bar"></i><div><b>Posto Norte</b><small>19:00 – 07:00 · Noturno</small></div><em>R$ 1.400</em></div>' +
-        '</div>' + tab(0) +
-      '</div>',
-    finance:
-      '<div class="screen">' +
-        '<div class="screen-top"><div class="hello"><span>Finanças</span></div><div class="month">Outubro 2026</div></div>' +
-        '<div class="screen-body" style="padding-top:12px">' +
-          '<div class="money-row" style="padding:0 0 4px"><div class="money"><small>Previstos</small><b>R$ 18.400</b></div><div class="money money--g"><small>Recebidos</small><b>R$ 12.600</b></div><div class="money money--a"><small>A receber</small><b>R$ 5.800</b></div></div>' +
-          '<div class="donut"><div><span><b>12</b><small>plantões</small></span></div></div>' +
-          '<div class="screen-title">Ganhos por local</div>' +
-          '<div class="hbars">' +
-            '<div class="row"><span>Centro</span><div class="track"><i style="--c:#16a34a;--w:82%"></i></div><span>7.500</span></div>' +
-            '<div class="row"><span>Posto Norte</span><div class="track"><i style="--c:#3b82f6;--w:66%"></i></div><span>6.000</span></div>' +
-            '<div class="row"><span>Base Leste</span><div class="track"><i style="--c:#f59e0b;--w:48%"></i></div><span>4.500</span></div>' +
-            '<div class="row"><span>Unid. Sul</span><div class="track"><i style="--c:#8b5cf6;--w:30%"></i></div><span>2.800</span></div>' +
-          '</div>' +
-        '</div>' + tab(3) +
-      '</div>'
-  };
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.querySelectorAll('[data-phone]').forEach(function (slot) {
-    var html = PHONES[slot.getAttribute('data-phone')];
-    if (!html) return;
+    var src = IMG[slot.getAttribute('data-phone')];
+    if (!src) return;
+    var eager = !!slot.closest('.hero');
     var phone = document.createElement('div');
     phone.className = 'phone';
     if (slot.classList.contains('phone--back-slot')) phone.classList.add('phone--back');
     if (slot.classList.contains('phone--front-slot')) phone.classList.add('phone--front');
     phone.setAttribute('aria-hidden', 'true');
-    phone.innerHTML = html;
+    phone.innerHTML = '<div class="screen screen--img"><img src="' + src + '" alt="" width="738" height="1600" decoding="async"' + (eager ? ' fetchpriority="high"' : ' loading="lazy"') + '></div>';
     slot.replaceWith(phone);
   });
 
@@ -95,8 +43,20 @@
   }
 
   /* ---------- Header com sombra ao rolar ---------- */
-  function onScroll() { if (header) header.classList.toggle('is-scrolled', window.scrollY > 8); }
-  window.addEventListener('scroll', onScroll, { passive: true });
+  var progress = document.querySelector('.progress i');
+  var ticking = false;
+  function onScroll() {
+    if (header) header.classList.toggle('is-scrolled', window.scrollY > 8);
+    if (progress) {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, window.scrollY / max) : 0) + ')';
+    }
+    ticking = false;
+  }
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; window.requestAnimationFrame(onScroll); }
+  }, { passive: true });
   onScroll();
 
   /* ---------- Link ativo conforme a seção ---------- */
@@ -114,14 +74,67 @@
   }
 
   /* ---------- Revelar ao rolar ---------- */
+  document.querySelectorAll('.feature-grid, .audience, .values, .plans, .contact-cards, .showcase-stage').forEach(function (group) {
+    Array.prototype.forEach.call(group.children, function (child, i) { child.style.setProperty('--d', i); });
+  });
   var revealEls = document.querySelectorAll('.reveal');
+  function markDone(el) {
+    var d = parseFloat(el.style.getPropertyValue('--d')) || 0;
+    window.setTimeout(function () { el.classList.add('is-done'); }, 900 + d * 90);
+  }
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('is-in'); markDone(en.target); io.unobserve(en.target); }
+      });
     }, { threshold: 0.12 });
     revealEls.forEach(function (el) { io.observe(el); });
   } else {
-    revealEls.forEach(function (el) { el.classList.add('is-in'); });
+    revealEls.forEach(function (el) { el.classList.add('is-in', 'is-done'); });
+  }
+
+  /* ---------- Brilho que segue o ponteiro (botões e cartões) ---------- */
+  var glowSel = '.btn, .store-btn, .feature, .aud, .value, .contact-card, .plan';
+  document.addEventListener('pointermove', function (e) {
+    var t = e.target.closest ? e.target.closest(glowSel) : null;
+    if (!t) return;
+    var r = t.getBoundingClientRect();
+    t.style.setProperty('--x', (e.clientX - r.left) + 'px');
+    t.style.setProperty('--y', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+
+  if (!reduceMotion) {
+    /* ---------- Inclinação 3D nos celulares da vitrine ---------- */
+    document.querySelectorAll('.tilt').forEach(function (el) {
+      el.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch') return;
+        var r = el.getBoundingClientRect();
+        var x = (e.clientX - r.left) / r.width - 0.5;
+        var y = (e.clientY - r.top) / r.height - 0.5;
+        el.style.setProperty('--rx', (x * 14).toFixed(2));
+        el.style.setProperty('--ry', (-y * 10).toFixed(2));
+        el.classList.add('is-tilting');
+      });
+      el.addEventListener('pointerleave', function () {
+        el.style.setProperty('--rx', 0);
+        el.style.setProperty('--ry', 0);
+        el.classList.remove('is-tilting');
+      });
+    });
+
+    /* ---------- Paralaxe suave dos celulares do hero ---------- */
+    document.querySelectorAll('.hero-visual').forEach(function (box) {
+      box.addEventListener('pointermove', function (e) {
+        if (e.pointerType === 'touch') return;
+        var r = box.getBoundingClientRect();
+        box.style.setProperty('--px', ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+        box.style.setProperty('--py', ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+      });
+      box.addEventListener('pointerleave', function () {
+        box.style.setProperty('--px', 0);
+        box.style.setProperty('--py', 0);
+      });
+    });
   }
 
   /* ---------- Ano no rodapé ---------- */
