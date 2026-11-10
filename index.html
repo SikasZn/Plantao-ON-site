@@ -203,6 +203,46 @@
     </div>
   </section>
 
+  <!-- GALERIA -->
+  <section class="section gallery" id="galeria" aria-labelledby="gal-title">
+    <div class="container">
+      <div class="section-head section-head--center reveal" data-r="zoom">
+        <span class="eyebrow">Tudo em um só app</span>
+        <h2 id="gal-title">Cada detalhe pensado para a sua rotina</h2>
+        <p>Calendário, locais de trabalho, financeiro e muito mais. Deslize ou toque nas setas para conhecer cada parte do Plantão ON.</p>
+      </div>
+    </div>
+    <div class="gal reveal">
+      <div class="gal-track" id="gal-track" tabindex="0" role="region" aria-label="Galeria de telas do Plantão ON" aria-roledescription="carrossel">
+      <figure class="gal-card">
+        <div class="pic"><img src="assets/img/poster-inicio.webp" alt="Tela inicial do Plantão ON: seus plantões e ganhos em um só lugar" width="840" height="1120" loading="lazy" decoding="async"></div>
+        <figcaption><h3>Resumo da semana</h3><p>Plantões, valores e horas do mês logo na primeira tela.</p></figcaption>
+      </figure>
+      <figure class="gal-card">
+        <div class="pic"><img src="assets/img/poster-calendario.webp" alt="Calendário do Plantão ON com os plantões do mês marcados por cor" width="840" height="1120" loading="lazy" decoding="async"></div>
+        <figcaption><h3>Calendário inteligente</h3><p>Veja o mês inteiro e identifique cada local pela cor.</p></figcaption>
+      </figure>
+      <figure class="gal-card">
+        <div class="pic"><img src="assets/img/poster-financeiro.webp" alt="Tela Financeiro do Plantão ON com resumo mensal de ganhos e gastos" width="840" height="1120" loading="lazy" decoding="async"></div>
+        <figcaption><h3>Controle de ganhos</h3><p>Recebido, a receber, gastos e saldo do período.</p></figcaption>
+      </figure>
+      <figure class="gal-card">
+        <div class="pic"><img src="assets/img/poster-locais.webp" alt="Lista de locais de trabalho do Plantão ON, cada um com a sua cor" width="840" height="1120" loading="lazy" decoding="async"></div>
+        <figcaption><h3>Seus locais de trabalho</h3><p>Cadastre cada local com cor e carga horária.</p></figcaption>
+      </figure>
+      <figure class="gal-card">
+        <div class="pic"><img src="assets/img/poster-mais.webp" alt="Menu Mais do Plantão ON com perfil, relatórios, notificações e Google Agenda" width="840" height="1120" loading="lazy" decoding="async"></div>
+        <figcaption><h3>Tudo ao alcance</h3><p>Perfil, relatórios, notificações, Google Agenda, importação e backup.</p></figcaption>
+      </figure>
+      </div>
+      <div class="gal-ctrl">
+        <button class="gal-btn" type="button" data-gal="-1" aria-label="Tela anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="gal-dots" id="gal-dots" aria-hidden="true"></div>
+        <button class="gal-btn" type="button" data-gal="1" aria-label="Próxima tela"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </section>
+
   <section class="section section--alt" aria-labelledby="tempo-title">
     <div class="container split">
       <div class="split-visual reveal" data-r="left" aria-hidden="true"><div data-phone="relatorios"></div></div>
@@ -328,6 +368,7 @@
   <section class="section section--alt" id="sobre">
     <div class="container about-grid">
       <div class="reveal">
+        <img class="about-seal" src="assets/img/selo-plantao-on.webp" alt="Selo Plantão ON — Escala de Plantões &amp; Ganhos" width="112" height="112" loading="lazy" decoding="async">
         <span class="eyebrow">Sobre o Plantão ON</span>
         <h2 style="font-size:clamp(1.75rem,4.4vw,2.6rem)">Tecnologia para uma vida profissional mais organizada</h2>
         <p>O Plantão ON nasceu da realidade de quem vive de plantão: múltiplos locais, escalas diferentes e variações de valor, e a necessidade de uma ferramenta simples e completa para organizar os próprios plantões e ganhos.</p>
@@ -399,10 +440,9 @@
           <li><svg><use href="#i-shield"/></svg>Seus dados protegidos (LGPD)</li>
         </ul>
       </div>
-      <div class="hero-visual" aria-hidden="true">
-        <div class="hero-blob"></div>
-        <div data-phone="relatorios" class="phone--back-slot"></div>
-        <div data-phone="financeiro" class="phone--front-slot"></div>
+      <div class="dl-poster reveal" data-r="right">
+        <div class="hero-blob" aria-hidden="true"></div>
+        <figure class="poster tilt"><img src="assets/img/poster-visao-geral.webp" alt="Telas do Plantão ON: início, locais, calendário, financeiro e menu. Baixe o Plantão ON e tenha a sua rotina profissional na palma da mão" width="840" height="1120" loading="lazy" decoding="async"></figure>
       </div>
     </div>
   </section>

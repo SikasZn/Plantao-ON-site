@@ -137,6 +137,74 @@
     });
   }
 
+
+  /* ---------- Galeria em leque (uma tela no centro, vizinhas ao fundo) ---------- */
+  var gTrack = document.getElementById('gal-track');
+  if (gTrack) {
+    var gCards = Array.prototype.slice.call(gTrack.children);
+    var gDotsBox = document.getElementById('gal-dots');
+    var gBtns = Array.prototype.slice.call(document.querySelectorAll('[data-gal]'));
+    var gCur = 0, gN = gCards.length;
+
+    gDotsBox.innerHTML = '';
+    gCards.forEach(function (c, i) {
+      var d = document.createElement('button');
+      d.type = 'button';
+      d.setAttribute('aria-label', 'Ver tela ' + (i + 1) + ' de ' + gN);
+      d.addEventListener('click', function () { gSet(i); });
+      gDotsBox.appendChild(d);
+    });
+    gDotsBox.removeAttribute('aria-hidden');
+
+    var gRender = function () {
+      var cw = gCards[0].getBoundingClientRect().width / (gCards[0].getBoundingClientRect().width ? 1 : 1);
+      cw = parseFloat(getComputedStyle(gCards[0]).width) || cw;
+      gCards.forEach(function (c, i) {
+        var d = i - gCur, a = Math.abs(d), s = d < 0 ? -1 : 1;
+        var x = 0, y = 0, sc = 1, rot = 0, op = 1, z = 10;
+        if (a === 1) { x = s * cw * 0.78; y = 20; sc = 0.86; rot = s * 5; op = 0.58; z = 9; }
+        else if (a === 2) { x = s * cw * 1.3; y = 46; sc = 0.74; rot = s * 10; op = 0.28; z = 8; }
+        else if (a > 2) { x = s * cw * 1.6; y = 60; sc = 0.66; rot = s * 12; op = 0; z = 7; }
+        c.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg) scale(' + sc + ')';
+        c.style.opacity = op;
+        c.style.zIndex = z;
+        c.style.pointerEvents = a > 2 ? 'none' : '';
+        c.classList.toggle('is-active', d === 0);
+        c.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
+      });
+      Array.prototype.forEach.call(gDotsBox.children, function (d, k) { d.classList.toggle('on', k === gCur); if (k === gCur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+    };
+    var gSet = function (i) { gCur = (i + gN) % gN; gRender(); };
+
+    gBtns.forEach(function (b) { b.addEventListener('click', function () { gSet(gCur + parseInt(b.getAttribute('data-gal'), 10)); }); });
+    gTrack.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); gSet(gCur + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); gSet(gCur - 1); }
+    });
+    gCards.forEach(function (c, i) { c.addEventListener('click', function () { if (!gMoved && i !== gCur) gSet(i); }); });
+
+    // arrastar / deslizar com o dedo ou o mouse
+    var gStartX = null, gMoved = false;
+    gTrack.addEventListener('pointerdown', function (e) { gStartX = e.clientX; gMoved = false; });
+    gTrack.addEventListener('pointermove', function (e) {
+      if (gStartX === null) return;
+      if (Math.abs(e.clientX - gStartX) > 8) { gMoved = true; gTrack.classList.add('is-drag'); }
+    });
+    var gEnd = function (e) {
+      if (gStartX === null) return;
+      var dx = e.clientX - gStartX;
+      gStartX = null; gTrack.classList.remove('is-drag');
+      if (Math.abs(dx) > 40) gSet(gCur + (dx < 0 ? 1 : -1));
+      window.setTimeout(function () { gMoved = false; }, 0);
+    };
+    gTrack.addEventListener('pointerup', gEnd);
+    gTrack.addEventListener('pointercancel', gEnd);
+    gTrack.addEventListener('pointerleave', function () { gStartX = null; gTrack.classList.remove('is-drag'); });
+    gTrack.addEventListener('dragstart', function (e) { e.preventDefault(); });
+    window.addEventListener('resize', gRender);
+    gRender();
+  }
+
   /* ---------- Ano no rodapé ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
 
