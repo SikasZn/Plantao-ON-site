@@ -761,55 +761,6 @@ p { margin: 0 0 1em; }
 }
 
 
-/* ---------- Galeria de telas (carrossel) ---------- */
-.gallery { background: #fff; overflow: hidden; }
-.gal { margin-top: 6px; --cw: min(66vw, 320px); }
-.gal-track {
-  position: relative; height: calc(var(--cw) * 1.3333 + 150px); margin-inline: auto; max-width: 100%;
-  touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab; outline-offset: -6px;
-}
-.gal-track.is-drag { cursor: grabbing; }
-.gal-card {
-  position: absolute; left: 50%; top: 30px; width: var(--cw); margin: 0 0 0 calc(var(--cw) / -2); display: flex; flex-direction: column; gap: 18px;
-  transform-origin: 50% 100%; will-change: transform, opacity;
-  transition: transform .7s var(--ease), opacity .6s ease, filter .6s ease;
-}
-.gal-card:not(.is-active) { cursor: pointer; filter: saturate(.85); }
-.gal-card figcaption { transition: opacity .45s ease; }
-.gal-card:not(.is-active) figcaption { opacity: 0; }
-.gal-card .pic {
-  position: relative; border-radius: 28px; overflow: hidden; aspect-ratio: 3 / 4; background: var(--navy);
-  box-shadow: 0 24px 50px rgba(15, 27, 51, .2), 0 4px 10px rgba(15, 27, 51, .08);
-  transition: transform .6s var(--spring), box-shadow .5s ease;
-}
-.gal-card .pic::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4), inset 0 1.5px 1px rgba(255, 255, 255, .55); }
-.gal-card .pic::before { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(115deg, transparent 38%, rgba(255, 255, 255, .28) 50%, transparent 62%); transform: translateX(-120%); transition: transform .9s var(--ease); }
-.gal-card:hover .pic { transform: translateY(-8px); box-shadow: 0 34px 64px rgba(15, 27, 51, .26), 0 6px 14px rgba(15, 27, 51, .1); }
-.gal-card:hover .pic::before { transform: translateX(120%); }
-.gal-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .9s var(--ease); }
-.gal-card:hover img { transform: scale(1.04); }
-.gal-card figcaption { padding-inline: 6px; }
-.gal-card h3 { font-size: 1.05rem; margin-bottom: 4px; color: var(--ink); }
-.gal-card p { margin: 0; font-size: .92rem; color: var(--muted); }
-
-.gal-ctrl { display: flex; align-items: center; justify-content: center; gap: 22px; }
-.gal-btn {
-  width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; cursor: pointer; color: var(--green-700);
-  border: 1px solid rgba(255, 255, 255, .9);
-  background: linear-gradient(180deg, rgba(255, 255, 255, .7), rgba(255, 255, 255, .15) 55%), rgba(232, 247, 239, .7);
-  -webkit-backdrop-filter: blur(14px) saturate(190%); backdrop-filter: blur(14px) saturate(190%);
-  box-shadow: inset 0 1.5px 1px #fff, inset 0 0 16px rgba(255, 255, 255, .5), 0 12px 26px rgba(15, 27, 51, .14), 0 0 0 1px rgba(22, 163, 74, .18);
-  transition: transform .5s var(--spring), box-shadow .3s ease, opacity .3s ease;
-}
-.gal-btn svg { width: 22px; height: 22px; }
-.gal-btn:hover { transform: scale(1.08); }
-.gal-btn:active { transform: scale(.94); transition-duration: .12s; }
-.gal-dots { display: flex; gap: 8px; }
-.gal-dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 9px; background: #c9d6e4; cursor: pointer; transition: width .35s var(--spring), background .3s ease; }
-.gal-dots button:hover { background: #9fb3c8; }
-.gal-dots button.on { width: 28px; background: var(--green); }
-@media (min-width: 900px) { .gal { --cw: 330px; } }
-
 /* ---------- Cartaz na seção de download ---------- */
 .dl-poster { position: relative; display: grid; place-items: center; min-height: 420px; }
 .dl-poster .hero-blob { width: 520px; height: 520px; max-width: 120%; }
@@ -823,12 +774,49 @@ p { margin: 0 0 1em; }
 .poster::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .38), inset 0 1.5px 1px rgba(255, 255, 255, .55); }
 .poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-/* ---------- Selo na seção Sobre ---------- */
-.about-seal { width: 96px; height: 96px; display: block; margin-bottom: 22px; border-radius: 50%; box-shadow: 0 16px 36px rgba(15, 27, 51, .28), 0 0 0 4px #fff, 0 0 0 5px rgba(22, 163, 74, .35); transition: transform .6s var(--spring); }
-.about-seal:hover { transform: rotate(-6deg) scale(1.06); }
-
 @media (prefers-reduced-motion: reduce) {
-  .gal-card { transition: none; }
-  .gal-card:hover .pic, .gal-card:hover img, .gal-btn:hover, .about-seal:hover { transform: none; }
   .poster { transform: none; }
+}
+
+/* ---------- Cartazes do cliente no lugar dos celulares ---------- */
+.phone.phone--poster {
+  --pw: min(80vw, 330px); aspect-ratio: 3 / 4; padding: 0; border-radius: 28px; background: var(--navy);
+  box-shadow: 0 30px 60px rgba(15, 27, 51, .26), 0 6px 14px rgba(15, 27, 51, .1);
+}
+.phone--poster::before { display: none; }
+.phone--poster::after { inset: 0; border-radius: inherit; background: none; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .4), inset 0 1.5px 1px rgba(255, 255, 255, .55); }
+.phone--poster .screen { border-radius: inherit; background: var(--navy); }
+.phone--poster .screen--img img { object-position: center; }
+.showcase-item:hover .phone.phone--poster { box-shadow: 0 40px 80px rgba(15, 27, 51, .32), 0 8px 18px rgba(15, 27, 51, .12); }
+.hero-visual .phone--poster.phone--front { --pw: min(78vw, 390px); }
+.hero-visual .phone--poster.phone--back { --pw: 330px; right: -2%; top: 40px; }
+.split-visual .phone--poster { --pw: min(80vw, 380px); }
+.faq-phone .phone--poster { --pw: 340px; }
+@media (min-width: 900px) {
+  .showcase-item .phone.phone--poster { --pw: 320px; }
+  .showcase-item--main .phone.phone--poster { --pw: 350px; }
+}
+@media (max-width: 1019px) { .hero-visual .phone--poster.phone--back { display: none; } }
+.hero-visual .phone--poster { align-self: center; height: auto; }
+
+/* ---------- Hero: troca de celulares ao clicar ---------- */
+.hero-visual .float-chip { pointer-events: none; z-index: 5; }
+.hero-phone { width: fit-content; }
+.hero-phone--front { position: relative; z-index: 2; margin-right: 18%; }
+.hero-phone--back { position: absolute; right: 2%; top: 56px; z-index: 1; cursor: pointer; }
+.hero-phone--back:focus-visible { outline: 3px solid var(--green-600); outline-offset: 8px; border-radius: 44px; }
+.hero-bob--a { animation: bobFront 7s ease-in-out infinite; }
+.hero-bob--b { animation: bobFront 8s ease-in-out infinite -2s; }
+.hero-visual .hero-phone .phone { position: relative; right: auto; top: auto; margin: 0; animation: none; transform: none; transform-origin: top right; opacity: 1; filter: none;
+  transition: translate .5s var(--ease), box-shadow .6s ease, filter .6s ease; }
+.hero-visual .hero-phone .phone--front { rotate: 0deg; scale: 1; translate: calc(var(--px) * 16px) calc(var(--py) * 12px); }
+.hero-visual .hero-phone .phone--back { rotate: 6deg; scale: .82; filter: saturate(.95); translate: calc(var(--px) * -22px) calc(var(--py) * -14px); }
+.hero-visual .hero-phone--back:hover .phone { scale: .85; }
+@media (max-width: 1019px) {
+  .hero-phone--back { display: none; }
+  .hero-phone--front { margin-right: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bob--a, .hero-bob--b { animation: none; }
+  .hero-visual .hero-phone .phone { transition: none; translate: none; }
 }

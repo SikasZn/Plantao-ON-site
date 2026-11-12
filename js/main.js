@@ -4,24 +4,114 @@
 
   /* ---------- Telas reais do aplicativo (decorativas nos slots) ---------- */
   var IMG = {
-    inicio: 'assets/img/app-inicio.webp',
-    financeiro: 'assets/img/app-financeiro.webp',
-    relatorios: 'assets/img/app-relatorios.webp'
+    inicio: 'assets/img/poster-inicio.webp',
+    calendario: 'assets/img/poster-calendario.webp',
+    financeiro: 'assets/img/poster-financeiro.webp',
+    locais: 'assets/img/poster-locais.webp',
+    mais: 'assets/img/poster-mais.webp',
+    'app-inicio': 'assets/img/app-inicio.webp',
+    'app-financeiro': 'assets/img/app-financeiro.webp'
   };
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.querySelectorAll('[data-phone]').forEach(function (slot) {
-    var src = IMG[slot.getAttribute('data-phone')];
+    var key = slot.getAttribute('data-phone');
+    var src = IMG[key];
     if (!src) return;
+    var legacy = key.indexOf('app-') === 0;
     var eager = !!slot.closest('.hero');
     var phone = document.createElement('div');
-    phone.className = 'phone';
+    phone.className = legacy ? 'phone' : 'phone phone--poster';
     if (slot.classList.contains('phone--back-slot')) phone.classList.add('phone--back');
     if (slot.classList.contains('phone--front-slot')) phone.classList.add('phone--front');
     phone.setAttribute('aria-hidden', 'true');
-    phone.innerHTML = '<div class="screen screen--img"><img src="' + src + '" alt="" width="738" height="1600" decoding="async"' + (eager ? ' fetchpriority="high"' : ' loading="lazy"') + '></div>';
-    slot.replaceWith(phone);
+    phone.innerHTML = '<div class="screen screen--img"><img src="' + src + '" alt="" width="' + (legacy ? 738 : 840) + '" height="' + (legacy ? 1600 : 1120) + '" decoding="async"' + (eager ? ' fetchpriority="high"' : ' loading="lazy"') + '></div>';
+    if (slot.classList.contains('phone--back-slot') || slot.classList.contains('phone--front-slot')) {
+      var back = slot.classList.contains('phone--back-slot');
+      var wrap = document.createElement('div');
+      wrap.className = 'hero-phone ' + (back ? 'hero-phone--back' : 'hero-phone--front');
+      var bob = document.createElement('div');
+      bob.className = 'hero-bob ' + (back ? 'hero-bob--b' : 'hero-bob--a');
+      bob.appendChild(phone);
+      wrap.appendChild(bob);
+      slot.replaceWith(wrap);
+    } else {
+      slot.replaceWith(phone);
+    }
   });
+
+  /* ---------- Troca de celulares no hero (clique no de trás) ---------- */
+  (function () {
+    var box = document.querySelector('.hero-visual');
+    if (!box) return;
+    var wraps = box.querySelectorAll('.hero-phone');
+    if (wraps.length !== 2) return;
+    var busy = false;
+
+    function role(w) { return w.classList.contains('hero-phone--front') ? 'front' : 'back'; }
+    function setRole(w, r) {
+      var other = r === 'front' ? 'back' : 'front';
+      w.classList.remove('hero-phone--' + other);
+      w.classList.add('hero-phone--' + r);
+      var ph = w.querySelector('.phone');
+      ph.classList.remove('phone--' + other);
+      ph.classList.add('phone--' + r);
+      if (r === 'back') { w.setAttribute('role', 'button'); w.setAttribute('tabindex', '0'); w.setAttribute('aria-label', 'Trazer esta tela para a frente'); }
+      else { w.removeAttribute('role'); w.removeAttribute('tabindex'); w.removeAttribute('aria-label'); }
+    }
+    wraps.forEach(function (w) { setRole(w, role(w)); });
+
+    function swap() {
+      if (busy) return;
+      var incoming = box.querySelector('.hero-phone--back');
+      var outgoing = box.querySelector('.hero-phone--front');
+      if (!incoming || !outgoing || getComputedStyle(incoming).display === 'none') return;
+      busy = true;
+      var a0 = incoming.getBoundingClientRect(), b0 = outgoing.getBoundingClientRect();
+      setRole(incoming, 'front');
+      setRole(outgoing, 'back');
+      var a1 = incoming.getBoundingClientRect(), b1 = outgoing.getBoundingClientRect();
+      if (reduceMotion || !incoming.animate) { busy = false; return; }
+      var dur = 1500;
+      var dxA = a0.left - a1.left, dyA = a0.top - a1.top;
+      var dxB = b0.left - b1.left, dyB = b0.top - b1.top;
+      var span = Math.abs(dxA) || 300;
+      var soft = 'cubic-bezier(.45,.05,.3,1)', out = 'cubic-bezier(.2,.75,.25,1)';
+      incoming.style.zIndex = '1'; outgoing.style.zIndex = '2';
+      /* a de trás passa por baixo, aparece pela esquerda e vem para a frente */
+      incoming.animate([
+        { transform: 'translate(' + dxA + 'px,' + dyA + 'px)', easing: soft },
+        { transform: 'translate(' + (-span * 0.42) + 'px,' + (dyA * 0.2 + 46) + 'px)', offset: 0.48, easing: out },
+        { transform: 'translate(0,0)' }
+      ], { duration: dur });
+      incoming.querySelector('.phone').animate([
+        { rotate: '6deg', scale: '.82', easing: soft },
+        { rotate: '-7deg', scale: '.76', offset: 0.48, easing: out },
+        { rotate: '0deg', scale: '1' }
+      ], { duration: dur });
+      /* a da frente desliza para a direita e recua */
+      outgoing.animate([
+        { transform: 'translate(' + dxB + 'px,' + dyB + 'px)', easing: soft },
+        { transform: 'translate(' + (dxB * 0.18) + 'px,' + (dyB * 0.18 - 18) + 'px)', offset: 0.55, easing: out },
+        { transform: 'translate(0,0)' }
+      ], { duration: dur });
+      outgoing.querySelector('.phone').animate([
+        { rotate: '0deg', scale: '1', easing: soft },
+        { rotate: '5deg', scale: '.86', offset: 0.55, easing: out },
+        { rotate: '6deg', scale: '.82' }
+      ], { duration: dur });
+      setTimeout(function () { incoming.style.zIndex = '2'; outgoing.style.zIndex = '1'; }, dur * 0.5);
+      setTimeout(function () { incoming.style.zIndex = ''; outgoing.style.zIndex = ''; busy = false; }, dur + 30);
+    }
+
+    box.addEventListener('click', function (e) {
+      if (e.target.closest('.hero-phone--back')) swap();
+    });
+    box.addEventListener('keydown', function (e) {
+      if ((e.key === 'Enter' || e.key === ' ') && e.target.closest('.hero-phone--back')) { e.preventDefault(); swap(); }
+    });
+  })();
+
 
   /* ---------- Menu mobile ---------- */
   var header = document.querySelector('.site-header');
@@ -137,73 +227,6 @@
     });
   }
 
-
-  /* ---------- Galeria em leque (uma tela no centro, vizinhas ao fundo) ---------- */
-  var gTrack = document.getElementById('gal-track');
-  if (gTrack) {
-    var gCards = Array.prototype.slice.call(gTrack.children);
-    var gDotsBox = document.getElementById('gal-dots');
-    var gBtns = Array.prototype.slice.call(document.querySelectorAll('[data-gal]'));
-    var gCur = 0, gN = gCards.length;
-
-    gDotsBox.innerHTML = '';
-    gCards.forEach(function (c, i) {
-      var d = document.createElement('button');
-      d.type = 'button';
-      d.setAttribute('aria-label', 'Ver tela ' + (i + 1) + ' de ' + gN);
-      d.addEventListener('click', function () { gSet(i); });
-      gDotsBox.appendChild(d);
-    });
-    gDotsBox.removeAttribute('aria-hidden');
-
-    var gRender = function () {
-      var cw = gCards[0].getBoundingClientRect().width / (gCards[0].getBoundingClientRect().width ? 1 : 1);
-      cw = parseFloat(getComputedStyle(gCards[0]).width) || cw;
-      gCards.forEach(function (c, i) {
-        var d = i - gCur, a = Math.abs(d), s = d < 0 ? -1 : 1;
-        var x = 0, y = 0, sc = 1, rot = 0, op = 1, z = 10;
-        if (a === 1) { x = s * cw * 0.78; y = 20; sc = 0.86; rot = s * 5; op = 0.58; z = 9; }
-        else if (a === 2) { x = s * cw * 1.3; y = 46; sc = 0.74; rot = s * 10; op = 0.28; z = 8; }
-        else if (a > 2) { x = s * cw * 1.6; y = 60; sc = 0.66; rot = s * 12; op = 0; z = 7; }
-        c.style.transform = 'translate(' + x + 'px,' + y + 'px) rotate(' + rot + 'deg) scale(' + sc + ')';
-        c.style.opacity = op;
-        c.style.zIndex = z;
-        c.style.pointerEvents = a > 2 ? 'none' : '';
-        c.classList.toggle('is-active', d === 0);
-        c.setAttribute('aria-hidden', d === 0 ? 'false' : 'true');
-      });
-      Array.prototype.forEach.call(gDotsBox.children, function (d, k) { d.classList.toggle('on', k === gCur); if (k === gCur) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
-    };
-    var gSet = function (i) { gCur = (i + gN) % gN; gRender(); };
-
-    gBtns.forEach(function (b) { b.addEventListener('click', function () { gSet(gCur + parseInt(b.getAttribute('data-gal'), 10)); }); });
-    gTrack.addEventListener('keydown', function (e) {
-      if (e.key === 'ArrowRight') { e.preventDefault(); gSet(gCur + 1); }
-      if (e.key === 'ArrowLeft') { e.preventDefault(); gSet(gCur - 1); }
-    });
-    gCards.forEach(function (c, i) { c.addEventListener('click', function () { if (!gMoved && i !== gCur) gSet(i); }); });
-
-    // arrastar / deslizar com o dedo ou o mouse
-    var gStartX = null, gMoved = false;
-    gTrack.addEventListener('pointerdown', function (e) { gStartX = e.clientX; gMoved = false; });
-    gTrack.addEventListener('pointermove', function (e) {
-      if (gStartX === null) return;
-      if (Math.abs(e.clientX - gStartX) > 8) { gMoved = true; gTrack.classList.add('is-drag'); }
-    });
-    var gEnd = function (e) {
-      if (gStartX === null) return;
-      var dx = e.clientX - gStartX;
-      gStartX = null; gTrack.classList.remove('is-drag');
-      if (Math.abs(dx) > 40) gSet(gCur + (dx < 0 ? 1 : -1));
-      window.setTimeout(function () { gMoved = false; }, 0);
-    };
-    gTrack.addEventListener('pointerup', gEnd);
-    gTrack.addEventListener('pointercancel', gEnd);
-    gTrack.addEventListener('pointerleave', function () { gStartX = null; gTrack.classList.remove('is-drag'); });
-    gTrack.addEventListener('dragstart', function (e) { e.preventDefault(); });
-    window.addEventListener('resize', gRender);
-    gRender();
-  }
 
   /* ---------- Ano no rodapé ---------- */
   document.querySelectorAll('[data-year]').forEach(function (el) { el.textContent = new Date().getFullYear(); });
