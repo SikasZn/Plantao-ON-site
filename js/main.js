@@ -9,7 +9,7 @@
     financeiro: 'assets/img/poster-financeiro.webp',
     locais: 'assets/img/poster-locais.webp',
     mais: 'assets/img/poster-mais.webp',
-    'app-inicio': 'assets/img/app-inicio.webp',
+    'app-inicio': 'assets/img/app-inicio.webp?v=20261111c',
     'app-financeiro': 'assets/img/app-financeiro.webp'
   };
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
