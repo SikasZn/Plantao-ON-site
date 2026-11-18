@@ -90,45 +90,6 @@ Este repositório contém o **site institucional** do app. Ele reúne a apresent
 └── site.webmanifest
 ```
 
-## Como rodar localmente
-
-Não precisa instalar nada. Escolha uma opção:
-
-```bash
-# Python
-python3 -m http.server 8080
-
-# ou Node
-npx serve .
-```
-
-Depois abra `http://localhost:8080`. Também funciona com a extensão **Live Server** do VS Code.
-
-> O formulário de contato depende do PHP e da chave do Resend, por isso só envia e-mail em um servidor configurado. Localmente, o restante do site funciona normalmente.
-
-## Publicação (Hostinger)
-
-1. Crie o subdomínio no hPanel, em **Domínios → Subdomínios**.
-2. No Gerenciador de Arquivos, abra a pasta do subdomínio.
-3. Envie o conteúdo do projeto, incluindo o `.htaccess`. Não envie a pasta `docs/`, que é só para este README.
-4. Confira se o SSL do subdomínio está ativo.
-5. Após atualizar `css/` ou `js/`, aumente o `?v=` nos links do `index.html` para o navegador baixar os arquivos novos.
-
-### Configurar o formulário de contato
-
-1. Copie `api/config.sample.php` para **fora** da pasta pública, um nível acima do site, com o nome `plantaoon-config.php`.
-2. Preencha a chave do Resend e o remetente:
-
-   ```php
-   return [
-       'resend_api_key' => 're_...',
-       'from'           => 'Plantão ON <nao-responda@seudominio.com.br>',
-   ];
-   ```
-3. O remetente precisa ser de um domínio **verificado** no Resend.
-
-> 🔒 Nunca coloque a chave dentro da pasta pública nem no Git.
-
 ## Licença e direitos
 
 Todos os direitos reservados. O código, o texto, as imagens e a marca **Plantão ON** pertencem aos seus titulares e **não** podem ser copiados, redistribuídos ou usados em outros projetos sem autorização.
@@ -138,6 +99,6 @@ Todos os direitos reservados. O código, o texto, as imagens e a marca **Plantã
 <div align="center">
 
 **Plantão ON** · Escala de Plantões & Ganhos
-Desenvolvido por Joca para Migliorini Teixeira Health Tech Ltda.
+Desenvolvido por João Victor Siqueira (@sikasdev) para Migliorini Teixeira Health Tech Ltda.
 
 </div>
