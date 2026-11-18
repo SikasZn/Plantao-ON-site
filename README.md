@@ -66,29 +66,6 @@ Este repositório contém o **site institucional** do app. Ele reúne a apresent
 <img src="docs/mobile.jpg" alt="Versão mobile do site" width="26%">
 </div>
 
-## Estrutura do projeto
-
-```text
-.
-├── index.html              # Página principal
-├── termos.html             # Termos de Uso
-├── privacidade.html        # Política de Privacidade
-├── excluir-conta.html      # Solicitação de exclusão de conta
-├── 404.html                # Página de erro
-├── api/
-│   ├── contato.php         # Endpoint do formulário de contato
-│   └── config.sample.php   # Modelo da configuração privada
-├── css/styles.css          # Estilos
-├── js/main.js              # Interações, animações e formulário
-├── assets/
-│   ├── fonts/              # Plus Jakarta Sans (local)
-│   └── img/                # Imagens, ícones e logos
-├── docs/                   # Capturas de tela usadas neste README
-├── .htaccess               # HTTPS, cache, compressão e segurança
-├── robots.txt
-├── sitemap.xml
-└── site.webmanifest
-```
 
 ## Licença e direitos
 
